@@ -346,3 +346,26 @@ class TestVisualizer:
             out = os.path.join(tmpdir, 'timeline.html')
             assert self.viz.visualize_timeline(graph, publications, out) == out
             assert os.path.exists(out)
+
+
+class TestWritePyvisHtmlUtf8:
+    """回归：Windows CI 上默认 cp1252 写 HTML 会 UnicodeEncodeError。"""
+
+    def test_writes_utf8_not_platform_default(self):
+        from research_kg.modules.html_io import write_pyvis_html
+
+        class FakeNet:
+            def generate_html(self):
+                # 模拟内联 vis-network 中超出 cp1252 的字符
+                return "<html><body>研究趋势·BERT — “注意力”</body></html>"
+
+            def write_html(self, *args, **kwargs):
+                raise AssertionError("should use generate_html + UTF-8 write")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out = os.path.join(tmpdir, 'sub', 'graph.html')
+            assert write_pyvis_html(FakeNet(), out) == out
+            with open(out, encoding='utf-8') as f:
+                html = f.read()
+            assert '研究趋势' in html
+            assert 'BERT' in html

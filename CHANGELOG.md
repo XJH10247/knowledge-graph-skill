@@ -27,9 +27,15 @@
 
 ### 修复
 
+- **修复 Windows CI 上交互/时间线 HTML 写出失败**：`pyvis` 的 `write_html` 在
+  默认编码为 cp1252 的 Windows runner 上会因内联 vis-network 中的字符触发
+  `UnicodeEncodeError: 'charmap' codec can't encode characters`。抽出
+  `research_kg.modules.html_io.write_pyvis_html`，经 `generate_html` 后以显式
+  `encoding='utf-8'` 落盘；CI 测试步骤同时设置 `PYTHONUTF8=1`。
 - `tests/TestPipeline.test_visualize_static` 在未安装 matplotlib / pyvis 时改为
   `pytest.importorskip` 跳过，与其余可视化用例及项目「优雅降级」约定一致，
   避免在仅装核心依赖的环境中误报失败。
+- 新增 `TestWritePyvisHtmlUtf8` 回归用例，锁定非平台默认编码写盘行为。
 
 ## [1.0.0] - 2026-09-13
 

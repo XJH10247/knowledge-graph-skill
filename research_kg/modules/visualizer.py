@@ -12,7 +12,10 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from matplotlib import font_manager
 
+from .html_io import write_pyvis_html
+
 logger = logging.getLogger(__name__)
+
 
 def _setup_chinese_font():
     font_candidates = [
@@ -217,11 +220,7 @@ class GraphVisualizer:
                     color=self.relation_colors.get(rtype, '#7F8C8D'),
                     width=0.5 + data.get('confidence', 0) * 2)
 
-            try:
-                net.write_html(output_path, open_browser=False, notebook=False)
-            except Exception as e:
-                logger.warning(f"Failed to write HTML with browser option: {e}")
-                net.write_html(output_path)
+            write_pyvis_html(net, output_path)
             logger.info(f"Interactive graph saved to: {output_path}")
             return output_path
         except ImportError:
@@ -292,11 +291,7 @@ class GraphVisualizer:
                     "that do not exist in the graph"
                 )
 
-            try:
-                net.write_html(output_path, open_browser=False, notebook=False)
-            except Exception as e:
-                logger.warning(f"Failed to write timeline HTML with browser option: {e}")
-                net.write_html(output_path)
+            write_pyvis_html(net, output_path)
             logger.info(f"Timeline graph saved to: {output_path}")
             return output_path
         except ImportError:
