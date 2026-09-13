@@ -1,0 +1,20 @@
+# 核心运行时 + 可视化完整依赖（开箱即用）
+# 只要图谱构建、不需要出图时，最小依赖仅为 networkx。
+#
+# 安装：pip install -r requirements.txt
+# 开发环境：pip install -r requirements-dev.txt
+
+# --- 图计算（核心，必需） ---
+networkx>=2.8
+
+# --- 可视化：PyVis 交互图谱 / Matplotlib 静态图谱 ---
+# 二者均会自带 numpy 依赖，本项目未直接 import numpy，故不单列。
+matplotlib>=3.5
+pyvis>=0.3
+
+# --- 可选：更高精度的实体识别 ---
+# 不装也能跑，EntityExtractor 会自动回退到纯规则抽取，只是召回率略低。
+# 安装后还需下载语言模型：
+#   python -m spacy download en_core_web_sm   # 英文
+#   python -m spacy download zh_core_web_sm   # 中文
+# spacy>=3.5

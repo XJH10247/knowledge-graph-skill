@@ -1,0 +1,60 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+eggs/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# ---- 虚拟环境 ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- 测试与覆盖率 ----
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+
+# ---- 类型检查 / 缓存 ----
+.mypy_cache/
+.dmypy.json
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ---- 运行产物（demo / pipeline 输出） ----
+examples/output/
+output/
+*.log
+
+# PyVis 使用 cdn_resources='local' 时会把 vis-network 静态资源复制到工作目录的 lib/ 下。
+# 默认的 cdn_resources='in_line' 不会产生该目录，这里仅作兜底。
+/lib/
+
+# ---- 编辑器与操作系统 ----
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Office 临时锁文件 ----
+~$*.docx
+~$*.pptx
+~$*.xlsx
+
+# ---- WorkBuddy 项目数据（不随仓库分发） ----
+.workbuddy/

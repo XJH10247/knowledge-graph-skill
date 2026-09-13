@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "research-knowledge-graph"
+version = "1.0.0"
+description = "从科研文献自动构建领域知识图谱：实体抽取、关系识别、图谱构建、交互可视化与研究脉络分析"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "XJH10247" }]
+keywords = [
+    "knowledge-graph",
+    "scientific-literature",
+    "information-extraction",
+    "relation-extraction",
+    "networkx",
+    "research-trends",
+    "literature-review",
+    "nlp",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+]
+
+# 图谱构建是全流程的硬依赖；可视化与 NLP 模型通过 extras 按需安装。
+dependencies = ["networkx>=2.8"]
+
+[project.optional-dependencies]
+# 生成 HTML / PNG 图谱（visualizer 模块）；numpy 由 matplotlib 间接引入
+viz = ["matplotlib>=3.5", "pyvis>=0.3"]
+# 更高精度的实体识别（缺失时自动回退到纯规则抽取，不影响运行）
+nlp = ["spacy>=3.5"]
+# 本地开发与测试
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4",
+]
+# 一次性装齐所有能力
+all = [
+    "matplotlib>=3.5",
+    "pyvis>=0.3",
+    "spacy>=3.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/XJH10247/research-knowledge-graph"
+Repository = "https://github.com/XJH10247/research-knowledge-graph"
+Issues = "https://github.com/XJH10247/research-knowledge-graph/issues"
+Changelog = "https://github.com/XJH10247/research-knowledge-graph/blob/main/CHANGELOG.md"
+Documentation = "https://github.com/XJH10247/research-knowledge-graph/blob/main/README.md"
+
+[tool.setuptools]
+packages = ["research_kg", "research_kg.modules"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+src = ["research_kg", "tests", "examples"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = [
+    "E501",  # 行宽由 formatter 控制，注释与中文提示允许超长
+    "B008",  # 允许函数默认值中使用调用
+]

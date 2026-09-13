@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite it as below."
+title: "research-knowledge-graph: 科研文献知识图谱自动构建工具"
+abstract: >-
+  一个从科研文献中自动构建领域知识图谱的 Python 工具包，支持中英文文献的实体抽取、
+  关系识别、图谱构建、交互可视化与研究脉络分析，可用于文献综述自动化、研究趋势识别、
+  研究空白发现与团队知识库构建。
+type: software
+authors:
+  - name: "XJH10247"
+version: 1.0.0
+date-released: 2026-09-13
+license: MIT
+repository-code: "https://github.com/XJH10247/research-knowledge-graph"
+url: "https://github.com/XJH10247/research-knowledge-graph"
+keywords:
+  - knowledge graph
+  - scientific literature
+  - information extraction
+  - relation extraction
+  - research trends
+  - literature review
+  - natural language processing
+  - networkx

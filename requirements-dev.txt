@@ -1,0 +1,11 @@
+# 开发环境依赖：核心 + 可视化 + 可选 NLP + 测试/规范工具
+# 安装：pip install -r requirements-dev.txt
+
+-r requirements.txt
+
+pytest>=7.0
+pytest-cov>=4.0
+ruff>=0.4
+
+# 需要在本地调试 spaCy 抽取路径时再取消注释
+# spacy>=3.5
